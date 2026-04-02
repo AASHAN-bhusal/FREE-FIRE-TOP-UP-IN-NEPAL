@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nepal FF Top-Up | Diamond Packages</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ========================================
+       CSS CUSTOM PROPERTIES (Design Tokens)
+       ======================================== */
+    :root {
+      /* Colors */
+      --bg-deep: #0a0a0f;
+      --bg-surface: #1a1a2e;
+      --accent-yellow: #f8ef00;
+      --accent-red: #ff003c;
+      --text-primary: #ffffff;
+      --text-secondary: #a0a0b0;
+      --border-muted: rgba(255, 255, 255, 0.1);
+      
+      /* Spacing */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 40px;
+      
+      /* Radius */
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      
+      /* Typography */
+      --font-heading: 'Orbitron', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      
+      /* Neon Glow Effects */
+      --glow-yellow: 0 0 10px rgba(248, 239, 0, 0.3),
+                      0 0 20px rgba(248, 239, 0, 0.2),
+                      0 0 30px rgba(248, 239, 0, 0.1);
+      --glow-yellow-intense: 0 0 10px rgba(248, 239, 0, 0.6),
+                             0 0 20px rgba(248, 239, 0, 0.4),
+                             0 0 40px rgba(248, 239, 0, 0.3),
+                             0 0 60px rgba(248, 239, 0, 0.2);
+      --glow-red: 0 0 10px rgba(255, 0, 60, 0.3),
+                  0 0 20px rgba(255, 0, 60, 0.2),
+                  0 0 30px rgba(255, 0, 60, 0.1);
+      --glow-red-intense: 0 0 10px rgba(255, 0, 60, 0.6),
+                          0 0 20px rgba(255, 0, 60, 0.4),
+                          0 0 40px rgba(255, 0, 60, 0.3);
+      
+      /* Shadow System (Token-based) */
+      --shadow-deep: 0 4px 12px rgba(0, 0, 0, 0.6), 
+                     0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    /* ========================================
+       RESET & BASE STYLES
+       ======================================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ========================================
+       ANIMATED 3D GRID BACKGROUND
+       ======================================== */
+    .grid-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      perspective: 1000px;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .grid-container {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      left: -50%;
+      top: -50%;
+      transform-style: preserve-3d;
+      transform: rotateX(60deg) translateZ(-500px);
+      animation: gridMove 20s linear infinite;
+    }
+
+    @keyframes gridMove {
+      0% {
+        transform: rotateX(60deg) translateZ(-500px) translateY(0);
+      }
+      100% {
+        transform: rotateX(60deg) translateZ(-500px) translateY(100px);
+      }
+    }
+
+    .grid-lines {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(0deg, transparent 24%, rgba(248, 239, 0, 0.1) 25%, rgba(248, 239, 0, 0.1) 26%, transparent 27%, transparent 74%, rgba(248, 239, 0, 0.1) 75%, rgba(248, 239, 0, 0.1) 76%, transparent 77%, transparent),
+        linear-gradient(90deg, transparent 24%, rgba(248, 239, 0, 0.1) 25%, rgba(248, 239, 0, 0.1) 26%, transparent 27%, transparent 74%, rgba(248, 239, 0, 0.1) 75%, rgba(248, 239, 0, 0.1) 76%, transparent 77%, transparent);
+      background-size: 100px 100px;
+      background-position: 0 0;
+    }
+
+    .grid-overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, 
+        var(--bg-deep) 0%, 
+        transparent 20%, 
+        transparent 80%, 
+        var(--bg-deep) 100%);
+    }
+
+    /* Scan-line overlay (cyberpunk enhancement) */
+    .grid-background::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.15),
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 2px
+      );
+      pointer-events: none;
+      opacity: 0.3;
+    }
+
+    /* ========================================
+       MAIN CONTAINER
+       ======================================== */
+    .app-container {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: var(--space-lg);
+    }
+
+    /* ========================================
+       HEADER / BRANDING
+       ======================================== */
+    .app-header {
+      text-align: center;
+      margin-bottom: var(--space-xl);
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+
+    .app-logo {
+      font-family: var(--font-heading);
+      font-size: 40px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, var(--accent-yellow), var(--accent-red));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: var(--glow-yellow);
+      margin-bottom: var(--space-sm);
+    }
+
+    .app-tagline {
+      font-size: 14px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+
+    /* ========================================
+       CARD COMPONENT (Glassmorphism)
+       ======================================== */
+    .card {
+      background: rgba(26, 26, 46, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-muted);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      width: 100%;
+      max-width: 500px;
+      box-shadow: var(--shadow-deep);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, 
+        transparent, 
+        var(--accent-yellow), 
+        var(--accent-red), 
+        transparent);
+      animation: shimmer 3s linear infinite;
+    }
+
+    @keyframes shimmer {
+      0% {
+        transform: translateX(-100%);
+      }
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    .card-title {
+      font-family: var(--font-heading);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: var(--space-lg);
+      text-align: center;
+      color: var(--text-primary);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    /* ========================================
+       PHASE MANAGEMENT (Hide/Show)
+       ======================================== */
+    .phase {
+      display: none;
+      opacity: 0;
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    .phase.active {
+      display: block;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ========================================
+       INPUT COMPONENT (Floating Label)
+       ======================================== */
+    .input-group {
+      position: relative;
+      margin-bottom: var(--space-lg);
+    }
+
+    .input-field {
+      width: 100%;
+      padding: var(--space-md) var(--space-md) var(--space-sm);
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid var(--border-muted);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 16px;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    .input-field:focus {
+      border-color: var(--accent-yellow);
+      box-shadow: var(--glow-yellow);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .input-field.error {
+      border-color: var(--accent-red);
+      box-shadow: var(--glow-red);
+    }
+
+    .input-label {
+      position: absolute;
+      left: var(--space-md);
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary);
+      font-size: 16px;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      background: var(--bg-surface);
+      padding: 0 var(--space-xs);
+    }
+
+    .input-field:focus + .input-label,
+    .input-field:not(:placeholder-shown) + .input-label {
+      top: 0;
+      font-size: 12px;
+      color: var(--accent-yellow);
+    }
+
+    .input-field.error + .input-label {
+      color: var(--accent-red);
+    }
+
+    .input-error {
+      color: var(--accent-red);
+      font-size: 12px;
+      margin-top: var(--space-xs);
+      display: none;
+    }
+
+    .input-error.visible {
+      display: block;
+    }
+
+    /* ========================================
+       BUTTON COMPONENT (Warrior Edges)
+       ======================================== */
+    .btn {
+      width: 100%;
+      padding: var(--space-md) var(--space-lg);
+      background: linear-gradient(135deg, var(--accent-yellow), var(--accent-red));
+      border: none;
+      color: var(--bg-deep);
+      font-family: var(--font-heading);
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      clip-path: polygon(
+        10px 0%, 
+        calc(100% - 10px) 0%, 
+        100% 10px, 
+        100% calc(100% - 10px), 
+        calc(100% - 10px) 100%, 
+        10px 100%, 
+        0% calc(100% - 10px), 
+        0% 10px
+      );
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .btn:hover {
+      box-shadow: var(--glow-yellow-intense);
+      transform: translateY(-2px);
+      text-shadow: 2px 0 var(--accent-red), -2px 0 cyan;
+    }
+
+    .btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .btn.loading {
+      pointer-events: none;
+    }
+
+    .btn.loading::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      margin-left: 8px;
+      border: 2px solid var(--bg-deep);
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 2px solid var(--accent-yellow);
+      color: var(--accent-yellow);
+      box-shadow: var(--glow-yellow);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(248, 239, 0, 0.1);
+    }
+
+    /* ========================================
+       PACKAGE GRID
+       ======================================== */
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+
+    .package-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid var(--border-muted);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .package-card:hover {
+      transform: scale(1.05);
+      border-color: var(--accent-yellow);
+      box-shadow: var(--glow-yellow);
+      background: rgba(248, 239, 0, 0.05);
+    }
+
+    .package-card:focus {
+      outline: 2px solid var(--accent-yellow);
+      outline-offset: 2px;
+    }
+
+    .package-card.active {
+      border-color: var(--accent-yellow);
+      background: rgba(248, 239, 0, 0.1);
+      animation: neonPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes neonPulse {
+      0%, 100% {
+        box-shadow: var(--glow-yellow);
+      }
+      50% {
+        box-shadow: var(--glow-yellow-intense);
+      }
+    }
+
+    .package-icon {
+      font-size: 32px;
+      margin-bottom: var(--space-sm);
+    }
+
+    .package-amount {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent-yellow);
+      margin-bottom: var(--space-xs);
+    }
+
+    .package-price {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .package-badge {
+      position: absolute;
+      top: var(--space-sm);
+      right: var(--space-sm);
+      background: var(--accent-red);
+      color: var(--text-primary);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      text-transform: uppercase;
+    }
+
+    /* ========================================
+       FORM LAYOUT
+       ======================================== */
+    .form-section {
+      margin-bottom: var(--space-lg);
+    }
+
+    .form-section-title {
+      font-family: var(--font-heading);
+      font-size: 14px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-md);
+      border-bottom: 2px solid var(--border-muted);
+      box-shadow: 0 1px 0 rgba(248, 239, 0, 0.3);
+    }
+
+    /* ========================================
+       SELECTED PACKAGE DISPLAY
+       ======================================== */
+    .selected-package-display {
+      background: rgba(248, 239, 0, 0.1);
+      border: 1px solid var(--accent-yellow);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      margin-bottom: var(--space-lg);
+      display: none;
+    }
+
+    .selected-package-display.visible {
+      display: block;
+    }
+
+    .selected-package-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .selected-package-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .selected-package-value {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      color: var(--accent-yellow);
+      font-weight: 700;
+    }
+
+    /* ========================================
+       RESPONSIVE DESIGN
+       ======================================== */
+    @media (min-width: 768px) {
+      .app-logo {
+        font-size: 48px;
+      }
+
+      .card {
+        max-width: 600px;
+        padding: 48px;
+      }
+
+      .packages-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .packages-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    /* ========================================
+       ACCESSIBILITY & REDUCED MOTION
+       ======================================== */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Focus visible for keyboard navigation */
+    *:focus-visible {
+      outline: 2px solid var(--accent-yellow);
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated 3D Grid Background -->
+  <div class="grid-background">
+    <div class="grid-container">
+      <div class="grid-lines"></div>
+    </div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <!-- Main Application Container -->
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <h1 class="app-logo">NEPAL FF TOP-UP</h1>
+      <p class="app-tagline">Premium Diamond Packages</p>
+    </header>
+
+    <!-- Phase 1: Security Login -->
+    <div id="phase1" class="phase active">
+      <div class="card">
+        <h2 class="card-title">🔐 Security Access</h2>
+        <form id="loginForm">
+          <div class="input-group">
+            <input 
+              type="text" 
+              id="securityId" 
+              class="input-field" 
+              placeholder=" "
+              required
+              autocomplete="off"
+              aria-describedby="securityIdError"
+            >
+            <label for="securityId" class="input-label">Security ID</label>
+            <span class="input-error" id="securityIdError" role="alert">Security ID is required</span>
+          </div>
+          <button type="submit" class="btn">Access Armory</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Phase 2: Diamond Packages -->
+    <div id="phase2" class="phase">
+      <div class="card">
+        <h2 class="card-title">💎 Select Package</h2>
+        <div class="packages-grid" id="packagesGrid" role="group" aria-label="Diamond packages">
+          <!-- Package cards will be generated by JavaScript -->
+        </div>
+        <button type="button" class="btn btn-secondary" id="continueToIdentification" disabled>
+          Continue to Identification
+        </button>
+      </div>
+    </div>
+
+    <!-- Phase 3: Player Identification -->
+    <div id="phase3" class="phase">
+      <div class="card">
+        <h2 class="card-title">👤 Player Identification</h2>
+        
+        <!-- Selected Package Display -->
+        <div class="selected-package-display" id="selectedPackageDisplay">
+          <div class="selected-package-info">
+            <span class="selected-package-label">Selected Package:</span>
+            <span class="selected-package-value" id="selectedPackageText"></span>
+          </div>
+        </div>
+
+        <form id="identificationForm">
+          <div class="form-section">
+            <h3 class="form-section-title">Account Details</h3>
+            
+            <div class="input-group">
+              <input 
+                type="text" 
+                id="playerUid" 
+                class="input-field" 
+                placeholder=" "
+                required
+                pattern="[0-9]{8,12}"
+                autocomplete="off"
+                aria-describedby="playerUidError"
+              >
+              <label for="playerUid" class="input-label">Player UID</label>
+              <span class="input-error" id="playerUidError" role="alert">Enter a valid UID (8-12 digits)</span>
+            </div>
+
+            <div class="input-group">
+              <input 
+                type="text" 
+                id="gameUsername" 
+                class="input-field" 
+                placeholder=" "
+                required
+                minlength="3"
+                maxlength="20"
+                autocomplete="off"
+                aria-describedby="gameUsernameError"
+              >
+              <label for="gameUsername" class="input-label">Game Username</label>
+              <span class="input-error" id="gameUsernameError" role="alert">Enter a valid username (3-20 characters)</span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn" id="submitBtn">🚀 Complete Purchase</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ========================================
+    // STATE MANAGEMENT
+    // ========================================
+    const AppState = {
+      currentPhase: 1,
+      securityId: '',
+      selectedPackage: null,
+      playerUid: '',
+      gameUsername: ''
+    };
+
+    // ========================================
+    // DIAMOND PACKAGES DATA
+    // ========================================
+    const packages = [
+      { id: 1, diamonds: 25, price: 'NPR 30', icon: '💎', badge: null },
+      { id: 2, diamonds: 50, price: 'NPR 55', icon: '💎', badge: 'Popular' },
+      { id: 3, diamonds: 115, price: 'NPR 100', icon: '💎', badge: null },
+      { id: 4, diamonds: 240, price: 'NPR 200', icon: '💎', badge: null },
+      { id: 5, diamonds: 355, price: 'NPR 300', icon: '💎', badge: 'Best Value' },
+      { id: 6, diamonds: 480, price: 'NPR 400', icon: '💎', badge: null },
+      { id: 7, diamonds: 610, price: 'NPR 500', icon: '💎', badge: null },
+      { id: 8, diamonds: 725, price: 'NPR 600', icon: '💎', badge: null },
+      { id: 9, diamonds: 850, price: 'NPR 700', icon: '💎', badge: null },
+      { id: 10, diamonds: 1090, price: 'NPR 900', icon: '💎', badge: null },
+       { id: 11, diamonds: 1240, price: 'NPR 1000', icon: '💎', badge: 'Popular' },
+        { id: 12, diamonds: 2530, price: 'NPR 2000', icon: '💎', badge: null },
+         { id: 13, diamonds: 5060, price: 'NPR 3980', icon: '💎', badge: null },
+          { id: 14, diamonds: 10120, price: 'NPR 7960', icon: '💎', badge: 'Popular' },
+  { 
+    id: 15, 
+    name: 'Weekly Lite', 
+    diamonds: 90, // Example value
+    price: 'NPR 70', 
+    icon: '🎫 Weekly Lite', // Ticket icon for Lite
+    badge: null
+  },
+  { 
+    id: 16, 
+    name: 'Weekly Membership', 
+    diamonds: 450, 
+    price: 'NPR 240', 
+    icon: '📅 Weekly Membership', // Calendar icon for Weekly
+    badge: null 
+  },
+  { 
+    id: 17, 
+    name: 'Monthly Membership', 
+    diamonds: 2500, 
+    price: 'NPR 1100', 
+    icon: '👑 Monthly Membership ', // Crown icon for Monthly/Premium
+    badge: null 
+  },
+  { 
+    id: 18, 
+    name: 'All Level Up Pass', 
+    diamonds: 2500, 
+    price: 'NPR 550', 
+    icon: '👑 All Level Up Pass ', // Crown icon for Monthly/Premium
+    badge: null 
+  }
+];
+
+    // ========================================
+    // PHASE MANAGEMENT
+    // ========================================
+    function showPhase(phaseNumber) {
+      // Hide all phases
+      document.querySelectorAll('.phase').forEach(phase => {
+        phase.classList.remove('active');
+      });
+
+      // Show target phase
+      const targetPhase = document.getElementById(`phase${phaseNumber}`);
+      if (targetPhase) {
+        targetPhase.classList.add('active');
+        AppState.currentPhase = phaseNumber;
+      }
+    }
+
+    // ========================================
+    // PHASE 1: LOGIN HANDLING
+    // ========================================
+    const loginForm = document.getElementById('loginForm');
+    const securityIdInput = document.getElementById('securityId');
+    const securityIdError = document.getElementById('securityIdError');
+
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const securityId = securityIdInput.value.trim();
+      
+      if (!securityId) {
+        securityIdInput.classList.add('error');
+        securityIdInput.setAttribute('aria-invalid', 'true');
+        securityIdError.classList.add('visible');
+        return;
+      }
+
+      // Store security ID and proceed to Phase 2
+      AppState.securityId = securityId;
+      showPhase(2);
+    });
+
+    securityIdInput.addEventListener('input', () => {
+      securityIdInput.classList.remove('error');
+      securityIdInput.removeAttribute('aria-invalid');
+      securityIdError.classList.remove('visible');
+    });
+
+    // ========================================
+    // PHASE 2: PACKAGE SELECTION
+    // ========================================
+    function renderPackages() {
+      const grid = document.getElementById('packagesGrid');
+      grid.innerHTML = '';
+
+      packages.forEach(pkg => {
+        const card = document.createElement('div');
+        card.className = 'package-card';
+        card.dataset.packageId = pkg.id;
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-label', `Select ${pkg.diamonds} diamonds package for ${pkg.price}`);
+        
+        card.innerHTML = `
+          ${pkg.badge ? `<span class="package-badge">${pkg.badge}</span>` : ''}
+          <div class="package-icon">${pkg.icon}</div>
+          <div class="package-amount">${pkg.diamonds}</div>
+          <div class="package-price">${pkg.price}</div>
+        `;
+
+        // Mouse click
+        card.addEventListener('click', () => selectPackage(pkg));
+        
+        // Keyboard navigation (Enter and Space)
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            selectPackage(pkg);
+          }
+        });
+        
+        grid.appendChild(card);
+      });
+    }
+
+    function selectPackage(pkg) {
+      // Remove active class from all cards
+      document.querySelectorAll('.package-card').forEach(card => {
+        card.classList.remove('active');
+        card.setAttribute('aria-pressed', 'false');
+      });
+
+      // Add active class to selected card
+      const selectedCard = document.querySelector(`[data-package-id="${pkg.id}"]`);
+      if (selectedCard) {
+        selectedCard.classList.add('active');
+        selectedCard.setAttribute('aria-pressed', 'true');
+      }
+
+      // Update state
+      AppState.selectedPackage = pkg;
+
+      // Enable continue button
+      document.getElementById('continueToIdentification').disabled = false;
+    }
+
+    document.getElementById('continueToIdentification').addEventListener('click', () => {
+      if (AppState.selectedPackage) {
+        // Update selected package display in Phase 3
+        const displayElement = document.getElementById('selectedPackageDisplay');
+        const textElement = document.getElementById('selectedPackageText');
+        
+        textElement.textContent = `${AppState.selectedPackage.diamonds} Diamonds (${AppState.selectedPackage.price})`;
+        displayElement.classList.add('visible');
+
+        showPhase(3);
+      }
+    });
+
+    // ========================================
+    // PHASE 3: IDENTIFICATION & VALIDATION
+    // ========================================
+    const identificationForm = document.getElementById('identificationForm');
+    const playerUidInput = document.getElementById('playerUid');
+    const playerUidError = document.getElementById('playerUidError');
+    const gameUsernameInput = document.getElementById('gameUsername');
+    const gameUsernameError = document.getElementById('gameUsernameError');
+
+    // Real-time validation on blur
+    playerUidInput.addEventListener('blur', () => {
+      const uid = playerUidInput.value.trim();
+      const isValid = /^[0-9]{8,12}$/.test(uid);
+      
+      if (!isValid && uid.length > 0) {
+        playerUidInput.classList.add('error');
+        playerUidInput.setAttribute('aria-invalid', 'true');
+        playerUidError.classList.add('visible');
+      } else {
+        playerUidInput.classList.remove('error');
+        playerUidInput.removeAttribute('aria-invalid');
+        playerUidError.classList.remove('visible');
+      }
+    });
+
+    playerUidInput.addEventListener('input', () => {
+      playerUidInput.classList.remove('error');
+      playerUidInput.removeAttribute('aria-invalid');
+      playerUidError.classList.remove('visible');
+    });
+
+    gameUsernameInput.addEventListener('blur', () => {
+      const username = gameUsernameInput.value.trim();
+      const isValid = username.length >= 3 && username.length <= 20;
+      
+      if (!isValid && username.length > 0) {
+        gameUsernameInput.classList.add('error');
+        gameUsernameInput.setAttribute('aria-invalid', 'true');
+        gameUsernameError.classList.add('visible');
+      } else {
+        gameUsernameInput.classList.remove('error');
+        gameUsernameInput.removeAttribute('aria-invalid');
+        gameUsernameError.classList.remove('visible');
+      }
+    });
+
+    gameUsernameInput.addEventListener('input', () => {
+      gameUsernameInput.classList.remove('error');
+      gameUsernameInput.removeAttribute('aria-invalid');
+      gameUsernameError.classList.remove('visible');
+    });
+
+    // ========================================
+    // FORM SUBMISSION & WHATSAPP REDIRECT
+    // ========================================
+    identificationForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const uid = playerUidInput.value.trim();
+      const username = gameUsernameInput.value.trim();
+
+      // Validate UID
+      const isUidValid = /^[0-9]{8,12}$/.test(uid);
+      if (!isUidValid) {
+        playerUidInput.classList.add('error');
+        playerUidInput.setAttribute('aria-invalid', 'true');
+        playerUidError.classList.add('visible');
+        return;
+      }
+
+      // Validate Username
+      const isUsernameValid = username.length >= 3 && username.length <= 20;
+      if (!isUsernameValid) {
+        gameUsernameInput.classList.add('error');
+        gameUsernameInput.setAttribute('aria-invalid', 'true');
+        gameUsernameError.classList.add('visible');
+        return;
+      }
+
+      // Store data
+      AppState.playerUid = uid;
+      AppState.gameUsername = username;
+
+      // Show loading state
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.classList.add('loading');
+      submitBtn.setAttribute('aria-busy', 'true');
+      submitBtn.textContent = 'Processing...';
+      submitBtn.disabled = true;
+
+      // Generate WhatsApp receipt after 1.5s delay (user feedback)
+      setTimeout(() => {
+        generateWhatsAppReceipt();
+      }, 1500);
+    });
+
+   function generateWhatsAppReceipt() {
+  // Generate dynamic Order ID
+  const orderId = `FFX-${Math.random().toString(36).substr(2, 8).toUpperCase()}`;
+
+  // Timestamp (Nepal Time)
+  const now = new Date();
+  const timestamp = now.toLocaleString('en-NP', {
+    timeZone: 'Asia/Kathmandu',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  });
+
+  // Receipt message (Cyber Armory Style)
+  const receipt = `
+╔══════════════════════════════════════╗
+║ 💠 *NEPAL FF CYBER-ARMORY* 💠 ║
+║     🔰 Secure Diamond Top-Up 🔰     ║
+╠══════════════════════════════════════╣
+
+📊 *ORDER INFORMATION*
+├─ 🆔 Order ID: \`${orderId}\`
+├─ 🛡️ Status: *Pending Verification*
+├─ ⏱️ Timestamp: \`${timestamp} NPT\`
+
+╠══════════════════════════════════════╣
+
+🎮 *PRODUCT DETAILS*
+├─ 💎 Item: *${AppState.selectedPackage.diamonds} Diamonds*
+├─ 💰 Price: *${AppState.selectedPackage.price}*
+├─ 📦 Category: *In-Game Currency*
+
+╠══════════════════════════════════════╣
+
+🔐 *USER AUTHENTICATION*
+├─ 👤 Player UID: \`${AppState.playerUid}\`
+├─ 🎯 Username: *${AppState.gameUsername}*
+├─ 🔑 Security ID: \`${AppState.securityId}\`
+
+╠══════════════════════════════════════╣
+
+⚠️ *SYSTEM NOTICE*
+This transaction is currently under secure processing.
+Please ensure all details are correct before confirmation.
+Unauthorized or invalid entries may lead to cancellation.
+
+╠══════════════════════════════════════╣
+
+🚀 *ACTION REQUIRED*
+👉 Reply with *CONFIRM* to proceed with the top-up
+👉 Reply with *CANCEL* to abort the transaction
+
+╚══════════════════════════════════════╝
+
+🛡️ _Powered by Nepal FF Secure Payment Gateway_
+💠 _Fast • Reliable • Encrypted Transactions_
+  `.trim();
+
+  const encodedReceipt = encodeURIComponent(receipt);
+  const whatsappNumber = '9779763669695';
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedReceipt}`;
+
+  window.location.href = whatsappUrl;
+}
+
+    // ========================================
+    // INITIALIZATION
+    // ========================================
+    document.addEventListener('DOMContentLoaded', () => {
+      renderPackages();
+    });
+
+    // ========================================
+    // KEYBOARD NAVIGATION
+    // ========================================
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT') {
+        e.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>
